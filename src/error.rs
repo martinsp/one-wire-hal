@@ -1,4 +1,4 @@
-pub trait Error: core::fmt::Debug {
+pub trait Error: core::fmt::Debug + From<ErrorKind> {
     /// Convert error to a generic OW error kind.
     ///
     /// By using this method, OW errors freely defined by HAL implementations
@@ -11,6 +11,13 @@ impl Error for core::convert::Infallible {
     #[inline]
     fn kind(&self) -> ErrorKind {
         match *self {}
+    }
+}
+
+impl From<ErrorKind> for core::convert::Infallible {
+    #[inline]
+    fn from(_: ErrorKind) -> Self {
+        unreachable!()
     }
 }
 

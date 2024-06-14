@@ -95,7 +95,7 @@ impl<'a, O, D> DeviceSearch<'a, O, D>
         }
 
         // TODO: do proper error handling
-        crc::check_crc8(&search_state.address.to_le_bytes()).unwrap();
+        crc::check_crc8(&search_state.address.to_le_bytes())?;
 
         Ok(Some((Address(search_state.address), search_state)))
     }
